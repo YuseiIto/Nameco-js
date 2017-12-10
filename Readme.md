@@ -1,4 +1,4 @@
-![Nameco.js](Nameco.svg)  
+![Nameco.js](Nameco.png)  
 
 ## Overview
 ---
