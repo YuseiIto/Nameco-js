@@ -3,7 +3,7 @@
 ## Overview
 ---
 A Javascript Library to embed text data into any image file.
-You can embed data just few code like below.  
+You can embed data with just few code (like below!)  .
 
 ~~~js
 
@@ -33,7 +33,7 @@ In the data-hiding subject, There are a lot of way to embed your data into image
 
 * Non limited data size
 * Infinity pattern writing paramater
-* Closs platform
+* Cross platform
 * 2ch data writing---You can embed two of your data to one image. 
 
 ## Requirement
@@ -107,7 +107,7 @@ var Text=Obj.Decode();//Text is gotten in here.
 ## Advanced
 
 Paramater **.ColorPlatet** is a little difficult to use paramater,but very powerful one.
-Nameco repraces each character to color number. ColorPalet decides the number of each character. So If you use this well,you can encrypt your data.
+Nameco repraces each character to color number. ColorPalet decides the color number of each character. So If you use this paramater well,you can encrypt your data.
 
 ## You would like to use Nameco?
 ---
