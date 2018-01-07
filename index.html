@@ -1,0 +1,189 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Nameco-js</title>
+    <script src="./smooth-scroll.js"></script>
+    <script src="Nameco.js"></script>
+    <script>
+        function init() {
+            MyNameco = new Nameco; //grobal
+        }
+
+        function mode() {
+            MyNameco.mode = document.getElementById("s2").value;
+        }
+
+        function Text() {
+            MyNameco.Text = document.getElementById("s3").value;
+        }
+
+        function Base() {
+            document.getElementById('s4').src = document.getElementById('file').value;
+            MyNameco.Base = document.getElementById("s4");
+        }
+
+        function Encode() {
+            document.getElementById('s5').src = MyNameco.Encode();
+        }
+
+        function Decode() {
+            MyNameco = new Nameco; //grobal redim
+            MyNameco.Img = document.getElementById('s5');
+            document.getElementById('s6').innerHTML = MyNameco.Decode();
+        }
+    </script>
+    <style>
+        .content {
+            background-image: url('http://free-paper-texture.com/p/p0026/p0026_l.jpg');
+            border-radius: 10px;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .mainbutton {
+            border: none;
+            background: none;
+            -webkit-appearance: none;
+            padding-right: 30px;
+            padding-left: 30px;
+            height: 30px;
+            font-size: 17pt;
+            background-color: #757575;
+            border-radius: 5px;
+        }
+        
+        body {
+            background-image: url('https://www.pakutaso.com/shared/img/thumb/140726157638_TP_V.jpg');
+            /*background-image:url('http://free-paper-texture.com/p/p0026/p0026_l.jpg');*/
+        }
+        
+        input[type='button'] {
+            display: none;
+        }
+        
+        #main {
+            text-align: center;
+            /*font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-seri
+        */
+            font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+        }
+        
+        .tr1 {
+            width: 95px;
+        }
+        
+        .tr2 {
+            width: 500px;
+        }
+        
+        .sectionhead {
+            color: #4169e1;
+            border-bottom: solid 1px #4169e1;
+            text-align: left;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <header style="">
+            <img src="Nameco.svg" width="75%">
+            <p>A javascript library to embed any data at any image file. </p>
+        </header>
+        <section class="content">
+            <header>
+                <h2 class="sectionhead">Introdunction</h2>
+
+            </header>
+
+            <p>画像にデータを埋め込み、それを読み出すためのjsライブラリNameco.jsのデモンストレーションを体験していただけます。 <br> グレーの背景の部分は実際に実行しているプログラムの内容を示しています。
+                <br> 実際にご使用される際の参考としてください。また、このページのソースも、資料としてご活用いただけます。
+            </p>
+        </section>
+        <section class="content" id="step1">
+            <header>
+                <h2 class="sectionhead">Step1</h2>
+            </header>
+            <p>まずは、Namecoオブジェクトを新しく定義します。</p>
+
+            <label for="s1" class="mainbutton">var MyNameco=new Nameco();</label>
+            <input type="button" id="s1" onClick="init();">
+            <p>↑Click here.</p>
+            <br>
+        </section>
+        <section class="content" id="step2">
+            <header>
+                <h2 class="sectionhead">Step2</h2>
+            </header>
+            <p>書きこむColor chanelを指定します</p>
+
+            <label class="mainbutton">MyNameco.mode=
+            <select id="s2" onchange="mode();">
+<option value="0">0;　(means "Red")</option>
+<option value="1">1; 　(means "Green")</option>
+<option value="2">2;　(means "Blue")</option>
+<option value="3">3 ;　(means Alpha)</option>
+</select>
+</label>
+
+        </section>
+        <section class="content" id="step3">
+
+            <header>
+                <h2 class="sectionhead">Step3</h2>
+            </header>
+            <p>書きこむ文字列を設定します</p>
+            <label class="mainbutton">MyNameco.Text="<input id="s3" type="text" onchange="Text();" style="border:none; background:none;-webkit-appearance:none;height:22px; border-radius:3px;font-size:13pt;background-color:#808080; border:solid 2px #d2691e;">"</label>
+        </section>
+        <section class="content" id="step4">
+            <header>
+                <h2 class="sectionhead">Step4</h2>
+            </header>
+            <p>書き込み先の画像を設定します。　指定は、image objectとして行われます。</p>
+            <label>ファイルを選択:<input type="file" id="file" onchange="Base();"></label><br>
+            <img id="s4" width="10%" src=""><br>
+            <label class="mainbutton">MyNameco.Base=[上の画像の image element object];</label>
+        </section>
+        <section class="content" id="step5">
+            <header>
+                <h2 class="sectionhead">Step5</h2>
+            </header>
+            <p>実際に埋め込みます。.Encode() メソッドからは、dataurlの形式で埋め込まれた画像のデータが返されます。</p>
+            <label for="b5" class="mainbutton">MyNameco.Encode();</label>
+            <input type="button" id="b5" onclick="Encode();">
+            <p>↑Click here.</p>
+            <p>============戻り値===========</p>
+            <img id="s5" width="10%">
+        </section>
+
+        <section class="content" id="step6">
+            <header>
+                <h2 class="sectionhead">Step6</h2>
+            </header>
+            <p>画像から読み出しを行ってみましょう。ここでは、再び新しいNamecoインスタンスを生成し直します。</p>
+            <div>
+                <p>var MyNameco=new Nameco();<br> MyNameco.Img=[step5でデータが埋め込まれた画像];
+                    <br></p>
+            </div>
+            <p>画像データは引数(as IMG element object)として渡されます。戻り値は、Stringです。</p>
+            <label for="b6" class="mainbutton">MyNameco.Decode();</label>
+            <input type="button" id="b6" onClick="Decode();">
+            <p>↑Click here.</p>
+            <p>==========戻り値===========</p>
+            <div id="s6"><span style="color:#454545;">[※上のボタンをクリックすると表示されます。※]</span></div>
+        </section>
+        <section id="s7" class="content">
+            <header>
+                <h2 class="sectionhead">That's all.</h2>
+            </header>
+            <p>おつかれさまでした。デモンストレーション セッションは以上です。 <br> 今回は、最低限必要なプロパティやメソッドのみご紹介しました。他にもいくつか便利な機能がございます。ぜひ一度、Readme.mdをご参照ください。
+            </p>
+        </section>
+    </div>
+
+</body>
+
+</html>
