@@ -174,8 +174,8 @@ Nameco.prototype = {
         var Nameco_Canvas = document.createElement("canvas"); //Working Canvas
 
 
-        Nameco_Canvas.width = this.Base.width;
-        Nameco_Canvas.height = this.Base.height;
+        Nameco_Canvas.width = this.Base.naturalWidth;
+        Nameco_Canvas.height = this.Base.naturalHeight;
         var ctx = Nameco_Canvas.getContext('2d');
         ctx.drawImage(this.Base, 0, 0);
 
