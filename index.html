@@ -3,7 +3,7 @@
 
 <head>
     <title>Nameco-js</title>
-    <script src="./smooth-scroll.js"></script>
+    <!--<script src="./smooth-scroll.js"></script>-->
     <script src="Nameco.js"></script>
     <script>
         function init() {
@@ -19,8 +19,17 @@
         }
 
         function Base() {
-            document.getElementById('s4').src = document.getElementById('file').value;
-            MyNameco.Base = document.getElementById("s4");
+            var fileReader = new FileReader();
+
+            fileReader.onload = function() {
+                var src_str = this.result;
+                document.getElementById('s4').src = src_str;
+                MyNameco.Base = document.getElementById("s4");
+            }
+
+            var file = document.getElementById('file').files[0];
+            fileReader.readAsDataURL(file);
+
         }
 
         function Encode() {
