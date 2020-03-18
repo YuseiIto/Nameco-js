@@ -1,0 +1,12 @@
+{
+  "name": "Nameco-js",
+  "version": "1.0.0",
+  "description": "Nameco JS server-side node version.",
+  "main": "index.js",
+  "repository": "git@github.com:YuseiIto/Nameco-js.git",
+  "author": "Yusei Ito <yuseikun@Outlook.jp>",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.6.1"
+  }
+}
