@@ -2,6 +2,7 @@
 
 const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs');
+const str = require('./test_asset');
 
 class Nameco {
     //Variables
@@ -72,6 +73,8 @@ class Nameco {
     }
 
 
+
+
     encodeStr(text) {
         //Converting String to HTML Encode function.
         const num = text.length;
@@ -90,7 +93,6 @@ class Nameco {
         return retext;
     }
 
-
     encode(useCtrl, doEncode) {
         console.log("encode")
 
@@ -102,17 +104,71 @@ class Nameco {
             this.Text = '[#]' + this.Text + "[;]";
         }
 
-        const canvas = createCanvas(this.Base.naturalWidth, this.Base.naturalHeight)
+        this.width = this.Base.naturalWidth;
+        this.height = this.Base.naturalHeight;
+        const canvas = createCanvas(this.width, this.height)
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(this.Base, 0, 0);
+
+        //Image size Validation
+        if (this.Text.length > this.width * this.height) {
+            console.error('The Image size is too small. Please make  \n Image Width[px]×Image height[px] > ' + this.Text.length);
+            exit;
+        }
+
+        const beforeTextArr = String(this.Text).split(''); //Each character each array element.
+        const imageData = ctx.getImageData(0, 0, this.width, this.height); // Get data of pixel all over the canvas.
+        const ImgData = imageData.data;
+        let i = 0;
+
+
+        beforeTextArr.forEach(function(char) {
+            let j = 0;
+            while (char != this.colorPalet[j][0]) {
+                j = j + 1;
+                if (j == 16) {
+                    j = 0;
+                    break;
+                }
+            }
+
+
+            const x = i % this.width;
+            const y = ((i - x) / this.width);
+            const m = ((y * (4 * this.width)) + (x * 4)) | 0;
+
+
+            //Make BlackPixel white.
+            if (ImgData[m + 3] == 0) {
+                ImgData[m] = 255;
+                ImgData[m + 1] = 255;
+                ImgData[m + 2] = 255;
+            }
+
+            ImgData[(m + this.mode) | 0] = this.colorPalet[j][1];
+
+
+            i = (i + 1) | 0;
+
+        }, this)
+
+        imageData.data = ImgData;
+        ctx.putImageData(imageData, 0, 0); //Apply changes to the canvas.
+        var png = canvas.toDataURL("image/png");
+        this.DataUrl = png;
+        return (png);
 
     }
 
 }
 
+
+
 let nameco = new Nameco();
-nameco.Text = "Hello";
+nameco.Text = "Hello,World";
 loadImage("./sample.png").then(
     (img) => {
         nameco.Base = img;
-        nameco.encode(false, true);
-    }
-);
+        const dataUrl = nameco.encode(false, true);
+
+    });
