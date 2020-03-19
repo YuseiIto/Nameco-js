@@ -1,4 +1,7 @@
+'use strict';
+
 const { createCanvas, loadImage } = require('canvas')
+const fs = require('fs');
 
 class Nameco {
     //Variables
@@ -46,7 +49,6 @@ class Nameco {
 
     }
 
-
     static decodeStr(text) {
 
         let retext = "";
@@ -70,15 +72,15 @@ class Nameco {
     }
 
 
-    static encodeStr(text) {
+    encodeStr(text) {
         //Converting String to HTML Encode function.
-        var num = text.length;
-        var retext = "";
+        const num = text.length;
+        let retext = "";
         if (num > 0) {
-            var i = 0;
+            let i = 0;
             for (i = 0; i < num; i++) {
                 //Get a character and translate
-                var code = text.charCodeAt(i);
+                const code = text.charCodeAt(i);
                 //connect each character's code
                 if (code > -1) {
                     retext += "&#" + code + ";";
@@ -89,18 +91,28 @@ class Nameco {
     }
 
 
-    decode() {
-        console.log("decode")
+    encode(useCtrl, doEncode) {
+        console.log("encode")
+
+        if (doEncode) {
+            this.Text = this.encodeStr(this.Text);
+        }
+
+        if (useCtrl) {
+            this.Text = '[#]' + this.Text + "[;]";
+        }
+
+        const canvas = createCanvas(this.Base.naturalWitdh, this.Base.naturalHeight)
+        console.log(this.Text);
     }
-
-
-
 
 }
 
 let nameco = new Nameco();
-nameco.decode();
-
-const canvas = createCanvas(200, 200)
-const ctx = canvas.getContext('2d')
-console.log(canvas.width)
+nameco.Text = "Hello";
+fs.readFile("./sample.png", 'utf-8',
+    function(img) {
+        nameco.Base = encodeURI(img);
+        nameco.encode(false, true);
+    }
+)
