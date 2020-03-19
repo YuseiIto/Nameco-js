@@ -102,17 +102,17 @@ class Nameco {
             this.Text = '[#]' + this.Text + "[;]";
         }
 
-        const canvas = createCanvas(this.Base.naturalWitdh, this.Base.naturalHeight)
-        console.log(this.Text);
+        const canvas = createCanvas(this.Base.naturalWidth, this.Base.naturalHeight)
+
     }
 
 }
 
 let nameco = new Nameco();
 nameco.Text = "Hello";
-fs.readFile("./sample.png", 'utf-8',
-    function(img) {
-        nameco.Base = encodeURI(img);
+loadImage("./sample.png").then(
+    (img) => {
+        nameco.Base = img;
         nameco.encode(false, true);
     }
-)
+);
