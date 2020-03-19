@@ -2,6 +2,8 @@
 
 const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs');
+const base64ToImage = require('base64-to-image');
+
 const str = require('./test_asset');
 
 class Nameco {
@@ -170,5 +172,7 @@ loadImage("./sample.png").then(
     (img) => {
         nameco.Base = img;
         const dataUrl = nameco.encode(false, true);
+        var optionalObj = { 'fileName': 'encoded', 'type': 'png' };
 
+        base64ToImage(dataUrl, "./", optionalObj);
     });
