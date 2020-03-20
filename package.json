@@ -1,5 +1,5 @@
 {
-    "name": "Nameco-js",
+    "name": "nameco",
     "version": "1.0.0",
     "description": "Nameco technology implementation on node",
     "main": "index.js",
