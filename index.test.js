@@ -28,7 +28,7 @@ test("Normal encode", async() => {
                 nameco.Text = "Ok,Boomer"
                 nameco.Base = img;
                 const dataUrl = nameco.encode(true, true);
-                var optionalObj = { 'fileName': 'encoded', 'type': 'png' };
+                var optionalObj = { 'fileName': 'encoded', 'type': 'jpg' };
 
             })
 
@@ -39,7 +39,7 @@ test('Encode/Decode equality', async() => {
     promise.then(() => {
 
 
-        loadImage("./encoded.png").then((img) => {
+        loadImage("./encoded.jpg").then((img) => {
             nameco.img = img;
             expect(nameco.decode(true, true)).toBe("Ok,Boomer");
         })

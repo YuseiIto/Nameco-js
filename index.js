@@ -125,9 +125,14 @@ module.exports = class Nameco {
 
         imageData.data = ImgData;
         ctx.putImageData(imageData, 0, 0); //Apply changes to the canvas.
-        var png = canvas.toDataURL("image/png");
-        this.DataUrl = png;
-        return (png);
+        if (this.mode != 3) {
+            const result = canvas.toDataURL("image/jpg");
+        } else {
+            const result = canvas.toDataURL("image/png");
+        }
+
+        this.DataUrl = result;
+        return (result);
 
     }
 
