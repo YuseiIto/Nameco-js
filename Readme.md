@@ -1,5 +1,5 @@
 ![Nameco.js](Nameco.svg)  
-
+![Node.js Package](https://github.com/YuseiIto/Nameco-js/workflows/Node.js%20Package/badge.svg)
 ## Overview
 ---
 A Javascript Library to embed text data into any image file.
