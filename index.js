@@ -42,39 +42,11 @@ class Nameco {
         this.Base = null;
         //Base image for making Natural Nameco data.( <img> object)
 
-        this.StrFlg = true;
-        //true: Encode 'this.Text' with utf16  before making image , Decode text  with utf16 from image after getting text from image.
-        //false: Don't do.
-
         this.Text = "";
         this.DataUrl = "";
-        this.Img = null;
+        this.img = null;
 
     }
-
-    static decodeStr(text) {
-
-        let retext = "";
-
-        do {
-            let n = String(text).indexOf("&#");
-            let m = String(text).indexOf(";");
-            if ((n > -1) && (m > n)) {
-                //Get the charcode of a single character
-                let code = parseInt(text.substring(n + 2, m));
-                //transate and join
-                retext += String.fromCharCode(code);
-                //Remove original text
-                text = text.substring(m + 1, text.length);
-            } else {
-                text = "";
-            }
-        } while (text != "")
-        //Return decodes text
-        return retext;
-    }
-
-
 
 
     encodeStr(text) {
@@ -96,7 +68,6 @@ class Nameco {
     }
 
     encode(useCtrl, doEncode) {
-        console.log("encode")
 
         if (doEncode) {
             this.Text = this.encodeStr(this.Text);
@@ -149,6 +120,9 @@ class Nameco {
 
             ImgData[(m + this.mode) | 0] = this.colorPalet[j][1];
 
+            if (ImgData[m + 3] == 0) {
+                ImgData[m + 3] = 255
+            }
 
             i = (i + 1) | 0;
 
@@ -162,17 +136,104 @@ class Nameco {
 
     }
 
+
+    ColorToChr(number) {
+
+        let i = 0;
+        while (this.colorPalet[i][1] != number) {
+            i = i + 1;
+            if (i == 16) {
+                i = 15;
+                break;
+            }
+        }
+        return this.colorPalet[i][0];
+    }
+
+
+    decodeStr(text) {
+
+        let retext = "";
+
+        do {
+            let n = String(text).indexOf("&#");
+            let m = String(text).indexOf(";");
+            if ((n > -1) && (m > n)) {
+                //Get the charcode of a single character
+                let code = parseInt(text.substring(n + 2, m));
+                //transate and join
+                retext += String.fromCharCode(code);
+                //Remove original text
+                text = text.substring(m + 1, text.length);
+            } else {
+                text = "";
+            }
+        } while (text != "")
+        //Return decodes text
+        return retext;
+    }
+
+
+    decode(useCtrl, doEncode) {
+
+        //img validation
+        if (this.img == null) {
+            console.error("Input is null. Set a image object to object.img")
+        }
+
+        this.width = this.img.naturalWidth;
+        this.height = this.img.naturalHeight;
+        const canvas = createCanvas(this.width, this.height);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(this.img, 0, 0);
+
+
+        const imageData = ctx.getImageData(0, 0, this.width, this.height);
+        let txt = ""; //Text after decode
+        let i = 0; //counter
+        while (i < (this.width * this.height)) {
+            const x = i % this.width; //Decode here(x).
+            const y = ((i - x) / this.width); //Decode here (y).
+            const m = ((y * (4 * this.width)) + (x * 4)); //Index to access "image data" array
+            const c = this.ColorToChr(imageData.data[(m + this.mode)]);
+            txt = txt + c;
+
+            i++;
+        }
+
+
+        let resText = txt;
+        let text_formed = String(resText).split('[;]');
+        if (useCtrl) {
+            text_formed = String(text_formed[0]).split('[#]');
+        }
+
+
+        if (doEncode) {
+            resText = this.decodeStr(text_formed[1]);
+        }
+
+        return resText
+
+    }
+
 }
 
 
-
 let nameco = new Nameco();
-nameco.Text = "Hello,World";
+
+
 loadImage("./sample.png").then(
     (img) => {
+        nameco.Text = "Ok,Boomer"
         nameco.Base = img;
-        const dataUrl = nameco.encode(false, true);
+        const dataUrl = nameco.encode(true, true);
         var optionalObj = { 'fileName': 'encoded', 'type': 'png' };
 
         base64ToImage(dataUrl, "./", optionalObj);
-    });
+    })
+
+loadImage("./encoded.png").then((img) => {
+    nameco.img = img;
+    console.log(nameco.decode(true, true));
+})
