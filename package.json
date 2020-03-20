@@ -4,7 +4,7 @@
     "description": "Nameco technology implementation on node",
     "main": "index.js",
     "repository": "git@github.com:YuseiIto/Nameco-js.git",
-    "author": "Yusei Ito <yuseikun@Outlook.jp>",
+    "author": "Yusei Ito <yuseikun@outlook.jp>",
     "license": "MIT",
     "dependencies": {
         "base64-to-image": "^1.0.2",
