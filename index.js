@@ -220,20 +220,4 @@ class Nameco {
 }
 
 
-let nameco = new Nameco();
-
-
-loadImage("./sample.png").then(
-    (img) => {
-        nameco.Text = "Ok,Boomer"
-        nameco.Base = img;
-        const dataUrl = nameco.encode(true, true);
-        var optionalObj = { 'fileName': 'encoded', 'type': 'png' };
-
-        base64ToImage(dataUrl, "./", optionalObj);
-    })
-
-loadImage("./encoded.png").then((img) => {
-    nameco.img = img;
-    console.log(nameco.decode(true, true));
-})
+module.exports = Nameco;
