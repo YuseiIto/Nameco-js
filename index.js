@@ -1,12 +1,7 @@
 'use strict';
-
 const { createCanvas, loadImage } = require('canvas')
-const fs = require('fs');
-const base64ToImage = require('base64-to-image');
 
-const str = require('./test_asset');
-
-class Nameco {
+module.exports = class Nameco {
     //Variables
     constructor() {
         this.width = 1000;
@@ -86,7 +81,7 @@ class Nameco {
         //Image size Validation
         if (this.Text.length > this.width * this.height) {
             console.error('The Image size is too small. Please make  \n Image Width[px]×Image height[px] > ' + this.Text.length);
-            exit;
+            return -1;
         }
 
         const beforeTextArr = String(this.Text).split(''); //Each character each array element.
@@ -218,6 +213,3 @@ class Nameco {
     }
 
 }
-
-
-module.exports = Nameco;
