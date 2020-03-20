@@ -1,6 +1,6 @@
 {
     "name": "nameco",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Nameco technology implementation on node",
     "main": "index.js",
     "repository": "git@github.com:YuseiIto/Nameco-js.git",
